@@ -1,4 +1,4 @@
-import { View } from 'react-native';
+import { Image } from 'react-native';
 import { useState } from "react";
 
 export default function Bird({ birdBottom, birdLeft }) {
@@ -7,14 +7,15 @@ export default function Bird({ birdBottom, birdLeft }) {
   const birdWidth = 50;
   const birdHeight = 60;
   return (
-    <View
+    <Image
+      source={require('../assets/birdStraight.png')}
       style={{
         position: 'absolute',
-        backgroundColor: 'blue',
         width: birdWidth,
         height: birdHeight,
         left: birdLeft - (birdWidth / 2),
-        bottom: birdBottom - (birdHeight / 2)
+        bottom: birdBottom - (birdHeight / 2),
+        resizeMode: 'stretch'
       }} />
   );
 }

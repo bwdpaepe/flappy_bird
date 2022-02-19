@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Dimensions, StyleSheet, Text, View, TouchableWithoutFeedback } from 'react-native';
+import { Dimensions, StyleSheet, ImageBackground, Text, View, TouchableWithoutFeedback } from 'react-native';
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Bird from './components/Bird';
 import Obstacle from './components/Obstacle';
@@ -15,7 +15,7 @@ export default function App() {
   const verticalStep = 3;
   let birdIntervalId;
   // obstacle stuff
-  const obstacleWidth = 10;
+  const obstacleWidth = 50;
   // const obstacleHeightLower = useMemo(() => { return (screenHeight / 4 + (Math.random() * (screenHeight / 4))) }, []);
   const [obstacleHeightLower, setObstacleHeightLower] = useState(screenHeight / 4 + (Math.random() * (screenHeight / 4)));
   const obstacleGap = screenHeight / 4;
@@ -86,11 +86,13 @@ export default function App() {
 
   return (
     <TouchableWithoutFeedback onPress={jump}>
-      <View style={styles.container}>
-        <Bird birdBottom={birdBottom} birdLeft={birdLeft} />
-        <Obstacle obstacleLeft={obstacleLeft} obstacleWidth={obstacleWidth} obstacleHeightLower={obstacleHeightLower} obstacleHeightUpper={obstacleHeightUpper} obstacleGap={obstacleGap} />
-        {isGameOver && <Score score={score} scoreLeft={screenWidth / 2 - 100} scoreHeight={screenHeight / 2 - 37} />}
-      </View>
+      <ImageBackground source={require('./assets/backgroundDay.png')} style={styles.image}>
+        <View style={styles.container}>
+          <Bird birdBottom={birdBottom} birdLeft={birdLeft} />
+          <Obstacle obstacleLeft={obstacleLeft} obstacleWidth={obstacleWidth} obstacleHeightLower={obstacleHeightLower} obstacleHeightUpper={obstacleHeightUpper} obstacleGap={obstacleGap} />
+          {isGameOver && <Score score={score} scoreLeft={screenWidth / 2 - 100} scoreHeight={screenHeight / 2 - 37} />}
+        </View>
+      </ImageBackground>
     </TouchableWithoutFeedback>
   );
 }
@@ -98,8 +100,12 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },
+  image: {
+    flex: 1,
+    resizeMode: 'center',
+    justifyContent: 'center',
+  }
 });
